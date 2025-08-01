@@ -1,0 +1,91 @@
+/* App.css */
+body {
+  margin: 0;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  background-color: #fff3e0; /* light beige */
+  color: #333333;
+}
+
+h1, h2 {
+  margin: 0.25rem 0;
+  font-weight: bold;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+main, .container {
+  max-width: 800px;
+  margin: auto;
+  padding: 1rem 1.5rem; 
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+}
+
+.navbar {
+  background-color: #ff6f00; 
+  padding: 1rem;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 .5rem;
+  font-weight: bold;
+}
+.task-card {
+  border: 2px solid #ff6f00;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: white;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+}
+
+.task-card h3 {
+  margin: 0;
+  color: #ff6f00;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+.task-card small {
+  color: #888;
+  font-style: italic;
+}
+button {
+  background-color: #e53935; /* Lasagna red */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #c62828;
+}
+
+@media (max-width: 600px) {
+  main, .container {
+    padding: 1rem; /* reduce side padding on small screens */
+  }
+
+  h1, h2 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .task-card {
+    font-size: 0.95rem;
+  }
+
+  button {
+    width: 100%; /* full width buttons on mobile */
+  }
+}
