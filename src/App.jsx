@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import CurrentTaskPage from './pages/CurrentTaskPage';
-import TaskListPage from './pages/TaskLIstPage';
+import TaskListPage from './pages/TaskListPage';
 
 import './App.css';
 
