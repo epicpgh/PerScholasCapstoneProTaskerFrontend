@@ -38,6 +38,8 @@ https://stackoverflow.com/questions/79571302/how-to-solve-path-to-regexp-depende
 
 https://medium.com/@thejasonfile/testing-routes-with-postman-ab5d50da9c3f
 
+https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/mongoose
+
 mod18Final-
                     |_pro-tasker
                  		|_ Backend

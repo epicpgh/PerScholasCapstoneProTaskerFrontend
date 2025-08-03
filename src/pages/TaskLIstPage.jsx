@@ -8,7 +8,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import TaskForm from "../components/TaskForm";
 
 
-axios.defaults.baseURL = "http://localhost:3000/api";
 
 
 
@@ -52,29 +51,7 @@ useEffect(()=>{
   };    
 
 
- useEffect(() => {
 
-  const fetchData = async () => {
-    try {
-      const response = await backendClient.get('/tasks');
-      setTasks(response.data);
-      setFilteredTasks(response.data);
-      const usersResponse = await backendClient.get('/users');
-      setUsers(usersResponse.data);
-    } catch (err) {
-      console.error('Error fetching tasks or users:', err);
-      setError('Failed to fetch tasks or users. Please try again later.');
-     
-
-
-      const localTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-      setTasks(localTasks);
-      setFilteredTasks(localTasks);
-    }
-  };
-
-  fetchData();
-}, []);
   const handleFilterChange = (filters) => {
     let filtered = [...tasks];
 
@@ -166,6 +143,8 @@ useEffect(()=>{
         onSubmit={handleTaskSubmit}
       />
 
+       <h2>Tasks for Project: {projectId} </h2>
+
       <ul>
         {(Array.isArray(filteredTasks) ? filteredTasks : []).map((task, index) => (
           <li
@@ -181,7 +160,7 @@ useEffect(()=>{
             }}
           >
 
-            <h2>Tasks for Project: {projectId} </h2>
+           
             <h3>{task.title}</h3>
             <p>{task.description}</p>
             <small>Status: {task.status}</small>
