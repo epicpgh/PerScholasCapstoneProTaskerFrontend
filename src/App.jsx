@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import CurrentTaskPage from './pages/CurrentTaskPage';
 import TaskListPage from './pages/TaskListPage';
+import ProjectsPage from './pages/ProjectsPage';
 
 import './App.css';
 
@@ -30,7 +31,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-           <Route path="/projects/:projectId/tasks" element={<TaskListPage />} />
+          <Route path="/tasks" element={<ProjectsPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:projectId/tasks" element={<TaskListPage />} />
           <Route path="/tasks/:id" element={<TaskDetailPage />} />
           <Route path='/tasks/:id/current' element={<CurrentTaskPage />} />
         </Routes>

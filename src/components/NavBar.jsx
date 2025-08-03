@@ -46,7 +46,7 @@ const NavBar = () => {
       <NavLink to="/" style={linkStyles}>Home</NavLink>
       <NavLink to="/register" style={linkStyles}>Register</NavLink>
       <NavLink to="/login" style={linkStyles}>Log In</NavLink>
-      <NavLink to="/tasks" style={linkStyles}>Tasks</NavLink>
+      <NavLink to="/projects" style={linkStyles}>Projects</NavLink>
     </nav>
   );
 };
