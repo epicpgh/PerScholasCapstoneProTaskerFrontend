@@ -10,7 +10,9 @@ function RegisterPage(){
         username: '',
         email: '',
         password: '',
-    })
+    });
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -20,16 +22,43 @@ function RegisterPage(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
     try {
-        const res = await backendClient.post('/users/register', formData);
-        console.log(res.data);
+      console.log('🔄 Attempting registration with:', { 
+        username: formData.username, 
+        email: formData.email 
+      });
+      console.log('🌐 Backend URL:', import.meta.env.VITE_BACKEND_URL);
+      
+      const res = await backendClient.post('/users/register', formData);
+      console.log('✅ Registration successful:', res.data);
 
-        localStorage.setItem('social-app-token', JSON.stringify(res.data.token));
-            navigate('/tasks')
+      localStorage.setItem('social-app-token', JSON.stringify(res.data.token));
+      navigate('/projects');
         
     } catch (error) {
-        console.log(error);     
+      console.error('❌ Registration error:', error);
+      console.error('❌ Error response:', error.response);
+      console.error('❌ Error request:', error.request);
+      
+      if (error.response) {
+        // Server responded with error status
+        console.error('❌ Response data:', error.response.data);
+        console.error('❌ Response status:', error.response.status);
+        setError(error.response.data.message || `Server error: ${error.response.status}`);
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error('❌ No response received');
+        setError('Cannot connect to server. Is the backend running?');
+      } else {
+        // Something else happened
+        console.error('❌ Request setup error:', error.message);
+        setError(`Request error: ${error.message}`);
+      }
+    } finally {
+      setLoading(false);
     }
   };
     return (
@@ -38,6 +67,20 @@ function RegisterPage(){
 
       <form onSubmit={handleSubmit}>
         <h2>Register</h2>
+        
+        {error && (
+          <div style={{ 
+            color: 'red', 
+            backgroundColor: '#ffebee', 
+            padding: '10px', 
+            borderRadius: '5px', 
+            marginBottom: '15px',
+            border: '1px solid #ffcdd2'
+          }}>
+            {error}
+          </div>
+        )}
+        
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -69,7 +112,19 @@ function RegisterPage(){
         />
         <br></br>
 
-                <input type="submit" value="Register"/>
+                <input 
+                  type="submit" 
+                  value={loading ? "Registering..." : "Register"}
+                  disabled={loading}
+                  style={{
+                    backgroundColor: loading ? '#ccc' : '#007bff',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    padding: '10px 20px',
+                    border: 'none',
+                    borderRadius: '5px',
+                    color: 'white'
+                  }}
+                />
          </form>
         </main>
 

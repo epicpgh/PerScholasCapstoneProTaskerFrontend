@@ -1,16 +1,111 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🧡 Garfield Pro-tasker
 
-Currently, two official plugins are available:
+Garfield Pro-tasker is a full-stack task management application designed to help users organize their projects and tasks with the laid-back wisdom of everyone's favorite lasagna-loving cat. Built with React + Vite on the frontend and Node.js + Express + MongoDB on the backend, it features authentication, project-based task filtering, and a colorful UI experience.
+🛠️ Tech Stack
+Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    React with Vite
 
-## Expanding the ESLint configuration
+    React Router DOM
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+    Axios for HTTP requests
 
+    LocalStorage for persistent state
+
+    Custom components and modular CSS
+
+Backend
+
+    Node.js + Express
+
+    MongoDB with Mongoose
+
+    JWT authentication
+
+    RESTful API
+
+    Custom middleware for auth and error handling
+
+
+📁 Project Structure
+
+mod18Final-
+├── pro-tasker/
+│   ├── Backend/
+│   │   ├── config/
+│   │   │   └── db.js
+│   │   ├── controllers/
+│   │   │   ├── projectController.js
+│   │   │   ├── taskController.js
+│   │   │   └── userController.js
+│   │   ├── middleware/
+│   │   │   ├── authMiddleware.js
+│   │   │   └── errorHandler.js
+│   │   ├── models/
+│   │   │   ├── Project.js
+│   │   │   ├── Task.js
+│   │   │   └── User.js
+│   │   ├── routes/
+│   │   │   ├── projectRoutes.js
+│   │   │   ├── taskRoutes.js
+│   │   │   └── userRoutes.js
+│   │   ├── utils/
+│   │   │   └── generateToken.js
+│   │   ├── server.js
+│   │   ├── .env
+│   │   └── package.json
+│
+├── frontend-protasker/
+│   ├── src/
+│   │   ├── clients/
+│   │   │   └── backendClients.js
+│   │   ├── components/
+│   │   │   ├── GarfieldBanner.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   ├── TaskFilter.jsx
+│   │   │   ├── TaskForm.jsx
+│   │   │   └── TaskList.jsx
+│   │   ├── pages/
+│   │   │   ├── CurrentTaskPage.jsx
+│   │   │   ├── HomePage.jsx
+│   │   │   ├── LoginPage.jsx
+│   │   │   ├── RegisterPage.jsx
+│   │   │   ├── TaskDetailPage.jsx
+│   │   │   └── TaskListPage.jsx
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .env
+│   └── package.json
+
+
+🔗 Helpful Resources
+
+This project was built using guidance from:
+
+    React useEffect
+
+    React useState
+
+    React JSX
+
+    React Events
+
+    Styling in React
+
+    Postman Docs
+
+    MDN: Array.map()
+
+    MDN: localStorage
+
+    Mongoose with Express
+
+
+🔗 Specific Sources Used:
 
 
 https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-and-exporting-overview/
@@ -40,54 +135,15 @@ https://medium.com/@thejasonfile/testing-routes-with-postman-ab5d50da9c3f
 
 https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs/mongoose
 
-mod18Final-
-                    |_pro-tasker
-                 		|_ Backend
-                               |               |_config
-                               |               |          |_db.js
-                               |               |_controllers
-                               |               |                   |_projectController.js
-                               |               |                   |_taskController.js
-                               |               |                   |_userContoller.js
-                               |.              |_middleware
-                               |               |                     |_authMiddleware.js
-                               |               |                     |_errorHandler.js
-                               |               |_models
-                               |               |             |_Project.js
-                               |               |             |_Task.js
-                               |               |             |_User.js
-                               |               | _routes
-                               |               |             |_projectRoutes.js
-                               |               |             |_taskeRoutes.js
-                               |               |             |_userRoutes.js
-                               |               |_utils
-                               |               |        |_generateToken.js
-                               |               |_server.js
-                               |               |.env
-                               |               |.gitignore
-                               |               |package.json
-                               |
-                               |_frontend-protasker
-                               |                  |_src
-                               |                         |_clients
-                               |                         |            |_backendClients.js
-                               |                         |_components
-                               |                         |                    |_GarfieldBanner.jsx
-                               |                         |                    |_NavBar.jsx
-                               |                         |                    |_TaskFilter.jsx
-                               |                         |                    |_TaskForm.jsx
-                               |                         |                    |_TaskList.jsx
-                               |                         |_pages
-                               |                         |.          |_CurrentTaskPage.jsx
-                               |                         |           |_HomePage.jsx
-                               |                         |           |_LoginPage.jsx
-                               |                         |           |_RegisterPage.jsx
-                               |                         |           |_TaskDetailPage.jsx
-                               |                         |           |_TaskListPage.jsx
-                               |                         |_App.css
-                               |                         |_App.jsx
-                               |                         |_index.css
-                               |                         |_main.jsx
-                               |.                        |_.env
-                               |.                        |_.gitignore
-                                                         |_.env.production
+
+https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+
+
+
+
+👤 Author
+
+Evan Miller
+Final project for the Per Scholas Software Engineering Bootcamp
+
+

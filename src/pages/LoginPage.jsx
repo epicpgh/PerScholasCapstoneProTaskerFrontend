@@ -8,10 +8,11 @@ import { useNavigate } from "react-router-dom";
 function LoginPage(){
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        
         email: '',
         password: '',
-    })
+    });
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,16 +22,34 @@ function LoginPage(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
-      try {
-        const res = await backendClient.post('/users/login', formData);
-        console.log(res.data);
+    try {
+      console.log('🔄 Attempting login with:', { email: formData.email });
+      console.log('🌐 Backend URL:', import.meta.env.VITE_BACKEND_URL);
+      
+      const res = await backendClient.post('/users/login', formData);
+      console.log('✅ Login successful:', res.data);
 
-        localStorage.setItem('social-app-token', JSON.stringify(res.data.token));
-            navigate('/tasks')
+      localStorage.setItem('social-app-token', JSON.stringify(res.data.token));
+      navigate('/projects');
         
     } catch (error) {
-        console.log(error);     
+      console.error('❌ Login error:', error);
+      
+      if (error.response) {
+        // Server responded with error status
+        setError(error.response.data.message || 'Login failed');
+      } else if (error.request) {
+        // Request was made but no response received
+        setError('Cannot connect to server. Is the backend running?');
+      } else {
+        // Something else happened
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
   };
     return (
@@ -38,8 +57,19 @@ function LoginPage(){
       <h1>Log In Page</h1>
  <form onSubmit={handleSubmit}>
         <h2>Sign In</h2>
-       
         
+        {error && (
+          <div style={{ 
+            color: 'red', 
+            backgroundColor: '#ffebee', 
+            padding: '10px', 
+            borderRadius: '5px', 
+            marginBottom: '15px',
+            border: '1px solid #ffcdd2'
+          }}>
+            {error}
+          </div>
+        )}
 
         <label htmlFor="email">Email:</label>
         <input
@@ -62,7 +92,15 @@ function LoginPage(){
         />
 <br/>
 
-                <input type="submit" value="Welcome Back!"/>
+                <input 
+                  type="submit" 
+                  value={loading ? "Signing In..." : "Welcome Back!"}
+                  disabled={loading}
+                  style={{
+                    backgroundColor: loading ? '#ccc' : '#007bff',
+                    cursor: loading ? 'not-allowed' : 'pointer'
+                  }}
+                />
          </form>
         </main>
 

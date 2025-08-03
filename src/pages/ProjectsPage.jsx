@@ -6,12 +6,15 @@ function ProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [creating, setCreating] = useState(false);
+  const [newProject, setNewProject] = useState({ name: '', description: '' });
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = JSON.parse(localStorage.getItem('social-app-token'));
         if (!token) {
           navigate('/login');
           return;
@@ -25,7 +28,7 @@ function ProjectsPage() {
         setError('Failed to load projects. Please try again.');
         
         if (error.response?.status === 401) {
-          localStorage.removeItem('token');
+          localStorage.removeItem('social-app-token');
           navigate('/login');
         }
       } finally {
@@ -35,6 +38,42 @@ function ProjectsPage() {
 
     fetchProjects();
   }, [navigate]);
+
+  const createProject = async (e) => {
+    e.preventDefault();
+    setCreating(true);
+    setError(null);
+
+    try {
+      const token = JSON.parse(localStorage.getItem('social-app-token'));
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      backendClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      const response = await backendClient.post('/projects', newProject);
+      
+      // Add the new project to the list
+      setProjects(prev => [...prev, response.data]);
+      
+      // Reset form and hide it
+      setNewProject({ name: '', description: '' });
+      setShowCreateForm(false);
+      
+      console.log('✅ Project created successfully:', response.data);
+    } catch (error) {
+      console.error('❌ Error creating project:', error);
+      setError('Failed to create project. Please try again.');
+      
+      if (error.response?.status === 401) {
+        localStorage.removeItem('social-app-token');
+        navigate('/login');
+      }
+    } finally {
+      setCreating(false);
+    }
+  };
 
   if (loading) {
     return <div style={{ padding: '20px' }}>Loading projects...</div>;
@@ -52,25 +91,129 @@ function ProjectsPage() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>🗂️ Your Projects</h1>
-      <p>Click on a project to view its tasks</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div>
+          <h1>🗂️ Your Projects</h1>
+          <p>Click on a project to view its tasks</p>
+        </div>
+        <button
+          onClick={() => setShowCreateForm(!showCreateForm)}
+          style={{
+            backgroundColor: '#28a745',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            padding: '12px 24px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          {showCreateForm ? '❌ Cancel' : '➕ New Project'}
+        </button>
+      </div>
+
+      {showCreateForm && (
+        <div style={{
+          backgroundColor: '#f8f9fa',
+          border: '2px solid #28a745',
+          borderRadius: '10px',
+          padding: '20px',
+          marginBottom: '20px'
+        }}>
+          <h3>Create New Project</h3>
+          <form onSubmit={createProject}>
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Project Name:</label>
+              <input
+                type="text"
+                value={newProject.name}
+                onChange={(e) => setNewProject(prev => ({ ...prev, name: e.target.value }))}
+                required
+                placeholder="Enter project name"
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  border: '1px solid #ddd',
+                  borderRadius: '5px',
+                  fontSize: '16px'
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Description (Optional):</label>
+              <textarea
+                value={newProject.description}
+                onChange={(e) => setNewProject(prev => ({ ...prev, description: e.target.value }))}
+                placeholder="Enter project description"
+                rows={3}
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  border: '1px solid #ddd',
+                  borderRadius: '5px',
+                  fontSize: '16px',
+                  resize: 'vertical'
+                }}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                type="submit"
+                disabled={creating || !newProject.name.trim()}
+                style={{
+                  backgroundColor: creating ? '#ccc' : '#28a745',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  padding: '10px 20px',
+                  cursor: creating ? 'not-allowed' : 'pointer'
+                }}
+              >
+                {creating ? 'Creating...' : 'Create Project'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowCreateForm(false);
+                  setNewProject({ name: '', description: '' });
+                }}
+                style={{
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  padding: '10px 20px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
       
       {projects.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '40px' }}>
-          <h2>No Projects Yet</h2>
+          <h2>🚀 No Projects Yet</h2>
           <p>Create your first project to start managing tasks!</p>
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => setShowCreateForm(true)}
             style={{
-              padding: '10px 20px',
-              backgroundColor: '#007bff',
+              padding: '12px 24px',
+              backgroundColor: '#28a745',
               color: 'white',
               border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer'
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '16px',
+              marginTop: '10px'
             }}
           >
-            Go to Home
+            ➕ Create Your First Project
           </button>
         </div>
       ) : (
