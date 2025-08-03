@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import backendClient from '../clients/backendClient';
 import TaskForm from '../components/TaskForm';
 
 function TaskDetailPage() {
@@ -22,7 +22,7 @@ function TaskDetailPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get(`/tasks/${id}`)
+    backendClient.get(`/tasks/${id}`)
       .then((res) => {
         setTask(res.data);
         setLoading(false);
@@ -46,7 +46,7 @@ function TaskDetailPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/tasks/${id}`, task);
+      await backendClient.put(`/tasks/${id}`, task);
       alert('Task updated!');
       navigate('/tasks'); // go back to task list
     } catch (err) {
@@ -58,7 +58,7 @@ function TaskDetailPage() {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this task?')) {
       try {
-        await axios.delete(`/tasks/${id}`);
+        await backendClient.delete(`/tasks/${id}`);
         alert('Task deleted!');
         navigate('/tasks'); // go back to task list
       } catch (err) {

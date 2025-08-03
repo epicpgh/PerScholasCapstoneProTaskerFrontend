@@ -26,7 +26,7 @@ function RegisterPage(){
         console.log(res.data);
 
         localStorage.setItem('social-app-token', JSON.stringify(res.data.token));
-            navigate('/feed')
+            navigate('/tasks')
         
     } catch (error) {
         console.log(error);     
@@ -38,7 +38,7 @@ function RegisterPage(){
 
       <form onSubmit={handleSubmit}>
         <h2>Register</h2>
-        <label htmlFor="username" />
+        <label htmlFor="username">Username:</label>
         <input
           type="text"
           name="username"
@@ -48,7 +48,7 @@ function RegisterPage(){
           style={{ marginBottom: "1rem" }}
         />
 <br></br>
-        <label htmlFor="email" />
+        <label htmlFor="email">Email:</label>
         <input
           type="email"
           name="email"
@@ -58,7 +58,7 @@ function RegisterPage(){
             style={{ marginBottom: "1rem" }}
         />
 <br></br>
-        <label htmlFor="password" />
+        <label htmlFor="password" >Password:  </label>
         <input
           type="password"
           name="password"

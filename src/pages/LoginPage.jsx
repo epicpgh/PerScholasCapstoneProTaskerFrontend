@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import axios from "axios";
+import backendClient from "../clients/backendClient";
 
 import { useNavigate } from "react-router-dom";
 
@@ -23,11 +23,11 @@ function LoginPage(){
     e.preventDefault();
 
       try {
-        const res = await axios.post('/users/login', formData);
+        const res = await backendClient.post('/users/login', formData);
         console.log(res.data);
 
         localStorage.setItem('social-app-token', JSON.stringify(res.data.token));
-            navigate('/feed')
+            navigate('/tasks')
         
     } catch (error) {
         console.log(error);     
@@ -41,17 +41,17 @@ function LoginPage(){
        
         
 
-        <label htmlFor="username" />
+        <label htmlFor="email">Email:</label>
         <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
           onChange={handleChange}
           style={{ marginBottom: "1rem" }}
         />
 <br/>
-        <label htmlFor="password" />
+        <label htmlFor="password">Password: </label>
         <input
           type="password"
           name="password"

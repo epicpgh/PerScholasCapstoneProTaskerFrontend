@@ -30,9 +30,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/tasks" element={<TaskListPage />} />
+           <Route path="/projects/:projectId/tasks" element={<TaskListPage />} />
           <Route path="/tasks/:id" element={<TaskDetailPage />} />
-          <Route path='/tasks/:id' element={<CurrentTaskPage />} />'
+          <Route path='/tasks/:id/current' element={<CurrentTaskPage />} />
         </Routes>
       </main>
     </>

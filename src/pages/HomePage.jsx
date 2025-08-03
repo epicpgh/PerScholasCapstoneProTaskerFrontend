@@ -10,12 +10,12 @@ function HomePage(){
          <p>Garfield will channel all of your hate towards Mondays into a simple, easy to use task management tool!</p>
          <p>Features:</p>
          <ul>
-            <li>Create and manage tasks with ease</li>
-            <li>Assign tasks to team members</li>
-            <li>Set deadlines and reminders</li>
-            <li>Track progress and completion status</li>
-            <li>Collaborate with your team in real-time</li>
-            <li>Intuitive and user-friendly interface</li>
+            <li>Create and manage tasks with dry humor</li>
+            <li>Assign tasks to team members with a side of sarcasm</li>
+            <li>Set deadlines and reminders (because Mondays are the worst)</li>
+            <li>Track progress and completion status (with witty commentary)</li>
+            <li>Collaborate with your team in real-time (while sharing a laugh)</li>
+            <li>Intuitive and user-friendly interface (even Garfield approves)</li>
          </ul>
         </>
 

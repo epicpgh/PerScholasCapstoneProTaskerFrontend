@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import backendClient from "../clients/backendClient";
 import TaskFilter from "../components/TaskFilter";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 
 
 import TaskForm from "../components/TaskForm";
@@ -12,6 +13,7 @@ axios.defaults.baseURL = "http://localhost:3000/api";
 
 
 function TaskListPage() {
+  const { projectId } = useParams();
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [users, setUsers] = useState([]);
@@ -27,7 +29,21 @@ function TaskListPage() {
   });
 
 
+useEffect(()=>{
+  const fetchData = async ()=>{
+    try{
+      const response = await backendClient.get(`/tasks/project/${projectId}`);
+      setTasks(response.data);
+      setFilteredTasks(response.data);
+      const usersResponse = await backendClient.get('/users');
+      setUsers(usersResponse.data);
+    } catch (error) {
+      console.error('Error fetching tasks or users:', error);
+    }
+  };
 
+  fetchData();
+}, [projectId]);
 
 
   const handleTaskChange = (e) => {
@@ -40,10 +56,10 @@ function TaskListPage() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('/tasks');
+      const response = await backendClient.get('/tasks');
       setTasks(response.data);
       setFilteredTasks(response.data);
-      const usersResponse = await axios.get('/users');
+      const usersResponse = await backendClient.get('/users');
       setUsers(usersResponse.data);
     } catch (err) {
       console.error('Error fetching tasks or users:', err);
@@ -100,11 +116,11 @@ function TaskListPage() {
  const handleTaskSubmit = async (e) => {
   try {
     e.preventDefault();
-    const realProjectId = '64cdef1234567890abcdef12';
+   
     const taskToSend = { ...newTask };
 
-   
-    const res = await axios.post(`/tasks/project/${realProjectId}`, taskToSend);
+
+    const res = await backendClient.post(`/tasks/project/${projectId}`, taskToSend);
 
     
     const updatedTasks = [...tasks, res.data];
@@ -164,6 +180,8 @@ function TaskListPage() {
               borderRadius: "8px"
             }}
           >
+
+            <h2>Tasks for Project: {projectId} </h2>
             <h3>{task.title}</h3>
             <p>{task.description}</p>
             <small>Status: {task.status}</small>

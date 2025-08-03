@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import backendClient from "../clients/backendClient";
 import {useParams, useNavigate} from 'react-router-dom';
 
 
@@ -17,7 +17,7 @@ function CurrentTaskPage() {
     useEffect(() => {
         const fetchTask = async () => {
             try {
-                const res = await axios.get(`/tasks/${id}`);
+                const res = await backendClient.get(`/tasks/${id}`);
                 setTask(res.data);
                 setLoading(false);
             } catch (err) {
