@@ -1,16 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 
-import GarfieldBanner from './components/GarfieldBanner';
-import NavBar from './components/NavBar';
+import GarfieldBanner from './components/GarfieldBanner.jsx';
+import NavBar from './components/NavBar.jsx';
 
-import TaskDetailPage from './pages/TaskDetailPage';
-import HomePage from './pages/HomePage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
-import CurrentTaskPage from './pages/CurrentTaskPage';
-import TaskListPage from './pages/TaskListPage';
-import ProjectsPage from './pages/ProjectsPage';
+import TaskDetailPage from './pages/TaskDetailPage.jsx';
+import HomePage from './pages/HomePage.jsx';
+import RegisterPage from './pages/RegisterPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import CurrentTaskPage from './pages/CurrentTaskPage.jsx';
+import TaskListPage from './pages/TaskListPage.jsx';
+import ProjectsPage from './pages/ProjectsPage.jsx';
 
 import './App.css';
 
