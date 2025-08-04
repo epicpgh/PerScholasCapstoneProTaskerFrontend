@@ -9,9 +9,8 @@ import HomePage from './pages/HomePage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import CurrentTaskPage from './pages/CurrentTaskPage.jsx';
-import TaskListPage from './pages/TaskListPage.jsx';
 import ProjectsPage from './pages/ProjectsPage.jsx';
-
+import TaskListPage from './pages/TaskListPage.jsx';
 import './App.css';
 
 function App() {
