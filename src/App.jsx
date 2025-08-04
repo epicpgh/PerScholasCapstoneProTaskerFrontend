@@ -10,7 +10,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import CurrentTaskPage from './pages/CurrentTaskPage.jsx';
 import ProjectsPage from './pages/ProjectsPage.jsx';
-import TaskListPage from './pages/TaskListPage.jsx';
+import TaskListPage from './pages/TaskLIstPage.jsx';
 import './App.css';
 
 function App() {
